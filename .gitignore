@@ -31,7 +31,8 @@ yarn-debug.log*
 .npm
 
 # --- Vite build (Vercel will rebuild this — commit optional) ---
-# client/dist/   ← KEEP COMMENTED OUT so Vercel rebuilds from source
+dist/
+client/dist/
 
 # --- OS ---
 .DS_Store
