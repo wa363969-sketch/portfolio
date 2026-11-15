@@ -5,6 +5,7 @@
   "scripts": {
     "dev:client": "cd client && npm run dev",
     "dev:server": "python server/app.py",
+    "build": "cd client && npm install && npm run build",
     "build:client": "cd client && npm run build",
     "start": "python server/app.py"
   },
