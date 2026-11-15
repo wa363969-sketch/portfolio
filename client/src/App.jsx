@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import LegalModals from './components/LegalModals';
 import AdminInquiriesModal from './components/AdminInquiriesModal';
+import AIAssistantBot from './components/AIAssistantBot';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
@@ -67,6 +68,9 @@ export default function App() {
         isOpen={adminModalOpen} 
         onClose={() => setAdminModalOpen(false)} 
       />
+
+      {/* Interactive AI Assistant Bot */}
+      <AIAssistantBot />
 
       {/* Vercel Web Analytics & Speed Insights */}
       <Analytics />
