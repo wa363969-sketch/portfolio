@@ -1,0 +1,22 @@
+{
+  "name": "shabeer-ahmed-portfolio",
+  "version": "1.0.0",
+  "description": "Premium Personal Developer Portfolio for Shabeer Ahmed – Independent Software Developer",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "python server/app.py",
+    "build:client": "cd client && npm run build",
+    "start": "python server/app.py"
+  },
+  "keywords": [
+    "portfolio",
+    "developer",
+    "python",
+    "flask",
+    "react",
+    "tailwind",
+    "freelancer"
+  ],
+  "author": "Shabeer Ahmed",
+  "license": "MIT"
+}
