@@ -128,7 +128,9 @@ export default function Contact({ preselectedService }) {
 
     try {
       // 1. Submit directly to FormSubmit connected to wa363969@gmail.com
-      const formSubmitUrl = `https://formsubmit.co/ajax/${encodeURIComponent(personalInfo.contact.email)}`;
+      // Using verified secure token to hide raw email from web scrapers
+      const FORMSUBMIT_TOKEN = '989682139dd02fbe605749cae8806a58';
+      const formSubmitUrl = `https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`;
       const response = await fetch(formSubmitUrl, {
         method: 'POST',
         headers: {
