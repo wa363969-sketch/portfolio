@@ -21,62 +21,83 @@ export default function ProjectModal({ project, onClose }) {
 
   // Simulated code snippets for each project demonstrating clean engineering
   const projectCodeSnippets = {
-    'ecommerce-platform': `# Flask API Order & Cart Processing
-@api.route('/orders/checkout', methods=['POST'])
-@validate_checkout_payload
-def process_order():
-    user_id = get_current_user_id()
-    cart_items = CartService.get_items(user_id)
+    'enterprise-logistics': `# Flask REST API - Real-Time Telemetry & Waypoint Progression
+@api.route('/shipments/<int:id>/simulate-telemetry', methods=['POST'])
+def advance_shipment_telemetry(id):
+    shipment = Shipment.query.get_or_404(id)
+    step = random.randint(8, 15)
+    shipment.current_progress_pct = min(100, shipment.current_progress_pct + step)
     
-    # Calculate totals with atomic database transaction
+    # Coordinate interpolation between origin & destination
+    ratio = shipment.current_progress_pct / 100.0
+    shipment.current_lat = shipment.origin_lat + (shipment.destination_lat - shipment.origin_lat) * ratio
+    shipment.current_lng = shipment.origin_lng + (shipment.destination_lng - shipment.origin_lng) * ratio
+    
+    # Checkpoint milestone completions
+    for i, wp in enumerate(shipment.waypoints):
+        wp.is_completed = (i <= int(ratio * len(shipment.waypoints)))
+        
+    db.session.add(DispatchEvent(
+        shipment_id=shipment.id, event_type='TELEMETRY_PING',
+        message=f"{shipment.tracking_number} reached {shipment.current_progress_pct}% completion."
+    ))
+    db.session.commit()
+    return jsonify(shipment.to_dict(include_details=True)), 200`,
+
+    'omniflow-saas': `# Multi-Tenant MRR Aggregation & Stripe Webhook Subscription Engine
+@api.route('/billing/webhooks/stripe', methods=['POST'])
+@validate_stripe_signature
+def handle_subscription_webhook():
+    payload = request.get_json()
+    event_type = payload.get('type')
+    
+    if event_type == 'invoice.payment_succeeded':
+        tenant_id = payload['data']['object']['customer_metadata']['tenant_id']
+        amount_cents = payload['data']['object']['amount_paid']
+        
+        with db.session.begin():
+            subscription = TenantSubscription.query.filter_by(tenant_id=tenant_id).first()
+            subscription.status = 'ACTIVE'
+            subscription.current_period_end = datetime.fromtimestamp(payload['data']['object']['lines']['data'][0]['period']['end'])
+            MetricPipeline.record_revenue_event(tenant_id, amount_cents)
+            
+    return jsonify({"received": True, "tenant_synced": True}), 200`,
+
+    'apex-health': `# HIPAA-Compliant WebRTC Consultation Token & EHR Audit Logging
+@api.route('/telehealth/sessions/<int:session_id>/token', methods=['POST'])
+@require_hipaa_jwt_auth
+def generate_webrtc_session_token(session_id):
+    session = ConsultationSession.query.get_or_404(session_id)
+    user = get_authenticated_user()
+    
+    # Enforce role-based patient-doctor confidentiality
+    if user.id not in [session.doctor_id, session.patient_id]:
+        abort(403, "HIPAA Authorization Violation: Unauthorized Access Attempt")
+        
+    session_token = WebRTCService.generate_ephemeral_token(
+        room_id=f"hipaa-enc-{session.id}", user_id=user.id, role=user.role, expiry_minutes=60
+    )
+    AuditLogger.log_access(user_id=user.id, resource="VIDEO_ROOM", patient_id=session.patient_id)
+    return jsonify({"token": session_token, "protocol": "AES_256_GCM"}), 200`,
+
+    'shopcore-ecommerce': `# Multi-Currency Dynamic Checkout & Inventory Lock
+@api.route('/checkout/create-session', methods=['POST'])
+@validate_cart_payload
+def create_global_checkout():
+    currency = request.json.get('currency', 'USD').upper()
+    cart_items = request.json.get('items', [])
+    fx_rate = CurrencyService.get_live_rate(base='USD', target=currency)
+    
     with db.session.begin():
-        total_cents = sum(item.price_cents * item.qty for item in cart_items)
-        order = Order(user_id=user_id, total_amount=total_cents, status='PENDING')
-        db.session.add(order)
-        InventoryService.reserve_stock(cart_items)
+        # Atomically reserve catalog stock
+        InventoryService.lock_sku_stock(cart_items)
+        line_items = [
+            {"price_data": {"currency": currency.lower(), "unit_amount": int(item['price_usd'] * fx_rate * 100), "product_data": {"name": item['name']}}, "quantity": item['qty']}
+            for item in cart_items
+        ]
+        stripe_session = stripe.checkout.Session.create(payment_method_types=['card'], line_items=line_items, mode='payment')
         
-    return jsonify({"order_id": order.id, "status": "CONFIRMED"}), 201`,
-
-    'school-management-system': `# Relational Grade & Attendance Aggregator
-@api.route('/students/<int:student_id>/academic-summary', methods=['GET'])
-def get_student_summary(student_id):
-    student = Student.query.get_or_404(student_id)
-    
-    # Optimized SQL aggregation with indexed joins
-    grades = db.session.query(
-        Course.name,
-        func.avg(Grade.score).label('average_score'),
-        Grade.letter_grade
-    ).join(Grade).filter(Grade.student_id == student_id).group_by(Course.name).all()
-    
-    attendance_rate = AttendanceService.calculate_rate(student_id)
-    return jsonify({
-        "student": student.full_name,
-        "gpa": student.calculate_gpa(),
-        "attendance_rate": attendance_rate,
-        "courses": [dict(row._mapping) for row in grades]
-    }), 200`,
-
-    'business-management-dashboard': `# Real-Time Financial Metric Aggregation
-@api.route('/dashboard/metrics', methods=['GET'])
-def get_executive_kpis():
-    current_month_start = datetime.utcnow().replace(day=1, hour=0, minute=0)
-    
-    # Aggregated SQL queries for revenue and expenses
-    revenue = db.session.query(func.coalesce(func.sum(Invoice.amount), 0))\
-        .filter(Invoice.status == 'PAID', Invoice.paid_at >= current_month_start).scalar()
-        
-    pending = db.session.query(func.count(Invoice.id))\
-        .filter(Invoice.status == 'PENDING').scalar()
-        
-    low_stock = Inventory.query.filter(Inventory.stock <= Inventory.reorder_level).count()
-    
-    return jsonify({
-        "revenue_current_month": float(revenue),
-        "pending_invoices": pending,
-        "low_stock_alerts": low_stock,
-        "server_time_utc": datetime.utcnow().isoformat()
-    }), 200`
+    return jsonify({"checkout_url": stripe_session.url, "currency": currency}), 201`
   };
 
   return (

@@ -20,134 +20,174 @@ export default function Projects() {
   // Visual representations for each project card
   const renderProjectVisual = (projectId) => {
     switch (projectId) {
-      case 'ecommerce-platform':
+      case 'enterprise-logistics':
         return (
           <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
-            {/* Mock Storefront Interface */}
+            {/* Mock Logistics Radar Interface */}
             <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                 <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                <span className="text-[10px] font-mono text-slate-400 ml-2">store.shabeer-dev.demo</span>
+                <span className="text-[10px] font-mono text-slate-400 ml-2">fleet.logicore-dispatch.demo</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                GPS Telemetry • 88 km/h
+              </span>
+            </div>
+
+            {/* Route & Checkpoint Visualizer */}
+            <div className="space-y-2 py-1">
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span>Chicago Hub (Departed)</span>
+                <span className="text-cyan-400 font-bold">58% Route</span>
+                <span>New York BioMed</span>
+              </div>
+              <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-emerald-400 w-[58%]" />
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1">
+                <span>Rig: Volvo VNL-860 (84% Fuel)</span>
+                <span className="text-emerald-400">Driver: M. Vance (Rating 4.96)</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
+              <span>Class-9 Cold-Chain Monitored</span>
+              <span className="text-cyan-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                Sub-Second Telemetry Sync
+              </span>
+            </div>
+          </div>
+        );
+
+      case 'omniflow-saas':
+        return (
+          <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
+            {/* Mock SaaS Billing Interface */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                <span className="text-[10px] font-mono text-slate-400 ml-2">app.omniflow-saas.io</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                Multi-Tenant Isolated
+              </span>
+            </div>
+
+            {/* KPI Metrics */}
+            <div className="grid grid-cols-3 gap-2 py-1">
+              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
+                <div className="text-[9px] text-slate-400 font-mono">Total MRR</div>
+                <div className="text-xs font-bold text-white mt-0.5">$142,800</div>
+                <div className="text-[9px] text-emerald-400 font-mono mt-0.5">+18.4% MoM</div>
+              </div>
+              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
+                <div className="text-[9px] text-slate-400 font-mono">Net Retention</div>
+                <div className="text-xs font-bold text-white mt-0.5">118% NRR</div>
+                <div className="text-[9px] text-cyan-400 font-mono mt-0.5">Enterprise</div>
+              </div>
+              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
+                <div className="text-[9px] text-slate-400 font-mono">Stripe Billing</div>
+                <div className="text-xs font-bold text-white mt-0.5">1,490 Orgs</div>
+                <div className="text-[9px] text-emerald-400 font-mono mt-0.5">99.8% Success</div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
+              <span>Automated Usage Metering</span>
+              <span className="text-indigo-400">Webhook Billing Engine</span>
+            </div>
+          </div>
+        );
+
+      case 'apex-health':
+        return (
+          <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
+            {/* Mock Telemedicine Room */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                <span className="text-[10px] font-mono text-slate-400 ml-2">clinic.apex-health.care</span>
               </div>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Cart (3 Items • $184.00)
+                HIPAA AES-256 Validated
+              </span>
+            </div>
+
+            {/* Telehealth Consultation Mock */}
+            <div className="space-y-1.5 py-1">
+              <div className="flex items-center justify-between text-[10px] font-mono bg-navy-900/90 px-2.5 py-1.5 rounded border border-slate-800">
+                <span className="text-slate-200">Session #TEL-4412 • Dr. Aris Thorne</span>
+                <span className="text-emerald-400 font-bold">HD WebRTC Active</span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-300">Encrypted</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-mono bg-navy-900/90 px-2.5 py-1.5 rounded border border-slate-800">
+                <span className="text-slate-200">Patient: Sarah Lin (DOB: 1989-04)</span>
+                <span className="text-cyan-400">EHR Synced</span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-300">Signed RX</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
+              <span>BAA-Compliant Telehealth</span>
+              <span className="text-emerald-400">Zero-Knowledge Video Pipeline</span>
+            </div>
+          </div>
+        );
+
+      case 'shopcore-ecommerce':
+        return (
+          <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
+            {/* Mock Multi-Currency Storefront */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                <span className="text-[10px] font-mono text-slate-400 ml-2">global.shopcore.store</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                USD / GBP / EUR / AUD
               </span>
             </div>
 
             {/* Product Cards Mockup */}
             <div className="grid grid-cols-3 gap-2 py-2">
               <div className="bg-navy-900/90 rounded-lg p-2 border border-slate-800 flex flex-col justify-between">
-                <div className="w-full h-10 bg-electric-500/10 rounded mb-1 flex items-center justify-center text-[10px] font-mono text-electric-400">
-                  Tech Wear
+                <div className="w-full h-8 bg-cyan-500/10 rounded mb-1 flex items-center justify-center text-[9px] font-mono text-cyan-400">
+                  Global SKU
                 </div>
-                <div className="text-[9px] text-slate-300 truncate">Urban Minimalist Jacket</div>
-                <div className="text-[10px] font-bold text-electric-400 mt-0.5">$89.00</div>
+                <div className="text-[9px] text-slate-300 truncate">Pro Tech Backpack</div>
+                <div className="text-[10px] font-bold text-cyan-400 mt-0.5">$129 • £102</div>
               </div>
               <div className="bg-navy-900/90 rounded-lg p-2 border border-slate-800 flex flex-col justify-between">
-                <div className="w-full h-10 bg-blue-500/10 rounded mb-1 flex items-center justify-center text-[10px] font-mono text-blue-400">
-                  Audio
+                <div className="w-full h-8 bg-blue-500/10 rounded mb-1 flex items-center justify-center text-[9px] font-mono text-blue-400">
+                  Global SKU
                 </div>
-                <div className="text-[9px] text-slate-300 truncate">Wireless ANC Headphones</div>
-                <div className="text-[10px] font-bold text-electric-400 mt-0.5">$65.00</div>
+                <div className="text-[9px] text-slate-300 truncate">ANC Wireless Audio</div>
+                <div className="text-[10px] font-bold text-blue-400 mt-0.5">$189 • €175</div>
               </div>
               <div className="bg-navy-900/90 rounded-lg p-2 border border-slate-800 flex flex-col justify-between">
-                <div className="w-full h-10 bg-cyan-500/10 rounded mb-1 flex items-center justify-center text-[10px] font-mono text-cyan-400">
-                  Hardware
+                <div className="w-full h-8 bg-emerald-500/10 rounded mb-1 flex items-center justify-center text-[9px] font-mono text-emerald-400">
+                  Global SKU
                 </div>
-                <div className="text-[9px] text-slate-300 truncate">Mechanical Desk Keyboard</div>
-                <div className="text-[10px] font-bold text-electric-400 mt-0.5">$30.00</div>
+                <div className="text-[9px] text-slate-300 truncate">Smart Sensor Ring</div>
+                <div className="text-[10px] font-bold text-emerald-400 mt-0.5">$249 • A$380</div>
               </div>
             </div>
 
             <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
-              <span>SQL Catalog Database</span>
+              <span>Catalog Automation & Webhooks</span>
               <span className="text-electric-400 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                Instant Checkout Flow
+                Stripe Hosted Checkout
               </span>
-            </div>
-          </div>
-        );
-
-      case 'school-management-system':
-        return (
-          <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
-            {/* Mock Admin Roster Interface */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                <span className="text-[10px] font-mono text-slate-400 ml-2">portal.school-admin.demo</span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                Spring Term 2026
-              </span>
-            </div>
-
-            {/* Student Table Mock */}
-            <div className="space-y-1.5 py-1">
-              <div className="flex items-center justify-between text-[10px] font-mono bg-navy-900/90 px-2.5 py-1.5 rounded border border-slate-800">
-                <span className="text-slate-200">#STU-1042 • Alexander Wright</span>
-                <span className="text-slate-400">CS-301</span>
-                <span className="text-emerald-400 font-bold">GPA: 3.88</span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-300">Present</span>
-              </div>
-              <div className="flex items-center justify-between text-[10px] font-mono bg-navy-900/90 px-2.5 py-1.5 rounded border border-slate-800">
-                <span className="text-slate-200">#STU-1043 • Sophia Martinez</span>
-                <span className="text-slate-400">MATH-202</span>
-                <span className="text-emerald-400 font-bold">GPA: 3.92</span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-300">Present</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
-              <span>Relational Foreign Keys (Students &lt;-&gt; Courses)</span>
-              <span className="text-blue-400">Automated Grade Analytics</span>
-            </div>
-          </div>
-        );
-
-      case 'business-management-dashboard':
-        return (
-          <div className="w-full h-48 bg-gradient-to-br from-navy-900 via-navy-950 to-slate-900 p-4 flex flex-col justify-between border-b border-slate-800 relative overflow-hidden group-hover:border-electric-500/30 transition-colors">
-            {/* Mock Dashboard Top */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                <span className="text-[10px] font-mono text-slate-400 ml-2">app.enterprise-kpi.demo</span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                Real-Time Sync
-              </span>
-            </div>
-
-            {/* KPI Chart Mock */}
-            <div className="grid grid-cols-3 gap-2 py-1">
-              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
-                <div className="text-[9px] text-slate-400 font-mono">Monthly Revenue</div>
-                <div className="text-xs font-bold text-white mt-0.5">$48,250</div>
-                <div className="text-[9px] text-emerald-400 font-mono mt-0.5">+14.2% MoM</div>
-              </div>
-              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
-                <div className="text-[9px] text-slate-400 font-mono">Invoices Pending</div>
-                <div className="text-xs font-bold text-white mt-0.5">18 Claims</div>
-                <div className="text-[9px] text-amber-400 font-mono mt-0.5">$12,400 due</div>
-              </div>
-              <div className="bg-navy-900/90 rounded p-2 border border-slate-800">
-                <div className="text-[9px] text-slate-400 font-mono">Stock Health</div>
-                <div className="text-xs font-bold text-white mt-0.5">96.4%</div>
-                <div className="text-[9px] text-electric-400 font-mono mt-0.5">4 Reorders</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-2 border-t border-slate-800/60">
-              <span>SQL Aggregate Engine</span>
-              <span className="text-purple-400">PDF Invoice Generator</span>
             </div>
           </div>
         );

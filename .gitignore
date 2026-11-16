@@ -39,6 +39,9 @@ client/dist/
 Thumbs.db
 desktop.ini
 
+# --- Local Demo Projects ---
+projects/
+
 # --- IDE ---
 .idea/
 *.swp
